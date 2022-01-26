@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from numpy import product
 from .models import Product
 from django.core.paginator import Paginator
 # Create your views here.
@@ -15,3 +16,7 @@ def index(request):
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
     return render(request, 'shop/index.html', {"products" : products})
+
+def details(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, 'shop/details.html', {"product":product})
